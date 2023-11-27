@@ -1,17 +1,14 @@
-import 'dart:js';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rexburgdancing/views/login_views.dart';
 import 'package:rexburgdancing/views/register_views.dart';
-
 import 'firebase_options.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Home',
       theme: ThemeData(
         
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -31,10 +28,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home Page'),
-      ),
-      body: FutureBuilder(
+    return FutureBuilder(
         future: Firebase.initializeApp(
                 options: DefaultFirebaseOptions.currentPlatform,
                 ),
@@ -43,34 +37,11 @@ class HomePage extends StatelessWidget {
             case ConnectionState.done:
             return const LoginView();   
         default:
-        return const Text('Loading...');
+        return const CircularProgressIndicator();
           }
           
         },
-      ),
-    );
+      );
   }
 }
 
-class VerfiyEmailView extends StatefulWidget {
-  const VerfiyEmailView({super.key});
-
-  @override
-  State<VerfiyEmailView> createState() => _VerfiyEmailViewState();
-}
-
-class _VerfiyEmailViewState extends State<VerfiyEmailView> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      const Text('Please verify your email address: '),
-      TextButton(onPressed: () async{
-        final user = FirebaseAuth.instance.currentUser;
-        await user?.sendEmailVerification();
-      }, child: const Text('Send email verfication'),
-      )
-    ],
-    );
-  }
-
-}

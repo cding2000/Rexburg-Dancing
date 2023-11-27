@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "214117782127",
+    "project_id": "rexburg-dancing",
+    "storage_bucket": "rexburg-dancing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214117782127:android:f38a8d7f19556438bdb39a",
+        "android_client_info": {
+          "package_name": "com.example.rexburgdancing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe1lQHNUgJgD0yxSnWDuZ-6AgIl3KpFO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

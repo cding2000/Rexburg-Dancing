@@ -5,7 +5,6 @@ import 'package:rexburgdancing/views/login_views.dart';
 import 'package:rexburgdancing/views/register_views.dart';
 import 'package:rexburgdancing/views/vierfy_email_view.dart';
 import 'firebase_options.dart';
-import 'dart:developer' as devotools show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +18,7 @@ void main() {
       routes: {
         '/login/': (context) => const LoginView(),
         '/register/': (context) => const RegisterView(),
+        '/venues/': (context) => const DanceVenueView(),
 
       },
     ));

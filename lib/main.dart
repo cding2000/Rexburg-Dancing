@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rexburgdancing/constant/routs.dart';
 import 'package:rexburgdancing/views/login_views.dart';
 import 'package:rexburgdancing/views/register_views.dart';
 import 'package:rexburgdancing/views/vierfy_email_view.dart';
@@ -16,9 +17,9 @@ void main() {
       ),
       home: const HomePage(),
       routes: {
-        '/login/': (context) => const LoginView(),
-        '/register/': (context) => const RegisterView(),
-        '/venues/': (context) => const DanceVenueView(),
+        loginRoute: (context) => const LoginView(),
+        registerRoute: (context) => const RegisterView(),
+        venueRoute: (context) => const DanceVenueView(),
 
       },
     ));
@@ -79,7 +80,7 @@ class _DanceVenueViewState extends State<DanceVenueView> {
               final shouldLogout = await showLogoutDialog(context);
               if (shouldLogout){
                 await FirebaseAuth.instance.signOut();
-                Navigator.of(context).pushNamedAndRemoveUntil('/login/', (_) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (_) => false);
               }
 
           }

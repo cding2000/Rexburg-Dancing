@@ -66,8 +66,7 @@ class _LoginViewState extends State<LoginView> {
                       email: email, 
                       password: password,
                 );
-                    
-                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    Navigator.of(context).pushNamedAndRemoveUntil(
                     venueRoute, 
                     (route) => false,);
     

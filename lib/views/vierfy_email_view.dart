@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rexburgdancing/services/auth/auth_service.dart';
 
 import '../constant/routs.dart';
 
@@ -25,12 +25,12 @@ class _VerfiyEmailViewState extends State<VerfiyEmailView> {
         const Text("We've send you an email verfication. Please open it to verfiy yourself."),
         const Text('Not recevied email yet? Press the button to resend it.'),
         TextButton(onPressed: () async{
-          final user = FirebaseAuth.instance.currentUser;
-          await user?.sendEmailVerification();
+          await AuthService.firebase().sendEmailVerification();
+
         }, child: const Text('Send email verfication'),
         ),
         TextButton(onPressed: () async{
-          await FirebaseAuth.instance.signOut();
+          await AuthService.firebase().logOut();
           Navigator.of(context).pushNamedAndRemoveUntil(registerRoute
                   , (route) => false,
                   );

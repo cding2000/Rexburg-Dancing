@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:rexburgdancing/constant/routs.dart';
-import 'package:rexburgdancing/views/login_views.dart';
-
 import '../utilities/show_error_dialog.dart';
 
 

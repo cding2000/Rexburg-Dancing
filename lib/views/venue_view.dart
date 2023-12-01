@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
+import 'package:rexburgdancing/services/crud/notes_service.dart';
 
 import '../constant/routs.dart';
 import '../enums/menu_action.dart';
@@ -7,11 +8,29 @@ import '../enums/menu_action.dart';
 class DanceVenueView extends StatefulWidget {
   const DanceVenueView({super.key});
 
+
   @override
   State<DanceVenueView> createState() => _DanceVenueViewState();
 }
 
 class _DanceVenueViewState extends State<DanceVenueView> {
+
+  late final NoteServices _noteService;
+  String get userEmail => AuthService.firebase().currentuser!.email!;
+
+  @override
+  void initState() {
+    _noteService = NoteServices();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _noteService.close();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +56,31 @@ class _DanceVenueViewState extends State<DanceVenueView> {
         )
       ],
       ),
-      body: const Text('Hello'),
+      body: 
+      FutureBuilder(
+        future: _noteService.getOrCreateUser(email: userEmail),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState){
+            case ConnectionState.done:
+              return StreamBuilder(stream: _noteService.allNotes,
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState){
+                  case ConnectionState.waiting:
+                    return const Text('Wait for all notes...');
+                  default:
+                    return const CircularProgressIndicator();
+
+                }
+              },);
+            default:
+              return const CircularProgressIndicator();
+          
+
+
+          }
+          
+        },
+      ),
       );
   }
 }

@@ -4,3 +4,4 @@ const loginRoute = '/login/';
 const registerRoute = '/register/';
 const venueRoute = '/venues/';
 const verfiyEmailRoute = '/verify-email/';
+const newVenueRoute = '/new-venue/';

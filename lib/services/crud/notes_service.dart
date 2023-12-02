@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' show join;
+import 'package:rexburgdancing/extension/list/filter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'crud_exception.dart';
@@ -11,6 +12,7 @@ class NoteServices {
   Database? _db;
 
   List<DataBaseNote> _notes = [];
+  DataBaseUser? _user;
 
   static final NoteServices _shared = NoteServices._sharedInstance();
   NoteServices._sharedInstance()
@@ -25,17 +27,34 @@ class NoteServices {
 
   late final StreamController<List<DataBaseNote>> _noteStreamController;
 
-  Stream<List<DataBaseNote>> get allNotes => _noteStreamController.stream;
+  Stream<List<DataBaseNote>> get allNotes =>
+      _noteStreamController.stream.filter((note) {
+        final currentUser = _user;
+        if (currentUser != null) {
+          return note.userId == currentUser.id;
+        } else {
+          throw UserShouldBeSetBeforeReadingAllNotes();
+        }
+      });
+
+
 
 
   Future<DataBaseUser> getOrCreateUser({
     required String email,
+    bool setAsCurrentUser = true,
   }) async {
     try {
       final user = await getUser(email: email);
+      if(setAsCurrentUser){
+        _user = user;
+      }
       return user;
     } on CouldNotFindUser {
       final createdUser = await createUser(email: email);
+      if(setAsCurrentUser){
+        _user = createdUser;
+      }
       return createdUser;
     } catch (e) {
       rethrow;
@@ -64,6 +83,7 @@ class NoteServices {
         textColumn: text,
         isSyncedWithCloudColumn: 0,
       },
+      where: 'id? = 0', whereArgs: [note.id],
     );
 
     if (updatesCount == 0) {

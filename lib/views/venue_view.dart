@@ -36,6 +36,10 @@ class _DanceVenueViewState extends State<DanceVenueView> {
     return Scaffold(
       appBar: AppBar(title: const Text('Dance Venue In Rexburg'),
       actions: [
+        IconButton(onPressed: (){
+          Navigator.of(context).pushNamed(newVenueRoute);
+        }, icon: const Icon(Icons.add)),
+
         PopupMenuButton<MenuAction>(onSelected: (value) async {
           switch (value)  {
             case MenuAction.logout:
@@ -66,6 +70,7 @@ class _DanceVenueViewState extends State<DanceVenueView> {
               builder: (context, snapshot) {
                 switch (snapshot.connectionState){
                   case ConnectionState.waiting:
+                  case ConnectionState.active:
                     return const Text('Wait for all notes...');
                   default:
                     return const CircularProgressIndicator();

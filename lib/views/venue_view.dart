@@ -74,6 +74,9 @@ class _DanceVenueViewState extends State<DanceVenueView> {
                        onDeleteNote: (note) async {
                        await _noteService.deleteNote(id: note.id);
                        },
+                       onTap: (note) {
+                          Navigator.of(context).pushNamed(newVenueRoute, arguments: note,);
+                       },
                        );
                     }
                     else{

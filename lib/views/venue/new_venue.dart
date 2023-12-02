@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
 import 'package:rexburgdancing/services/crud/notes_service.dart';
+import 'package:rexburgdancing/utilities/generic/get_argument.dart';
 
 class NewVenueView extends StatefulWidget {
   const NewVenueView({super.key});
@@ -38,7 +39,15 @@ class _NewVenueViewState extends State<NewVenueView> {
 
   }
 
-  Future<DataBaseNote> createNewNote() async{
+  Future<DataBaseNote> createNewNote(BuildContext context) async{
+
+    final widgetNote = context.getArgument<DataBaseNote>();
+    if (widgetNote != null) {
+      _note = widgetNote;
+      _textController.text = widgetNote.text;
+      return widgetNote;
+    }
+
     final exisitingNote = _note;
     if (exisitingNote != null){
       return exisitingNote;
@@ -46,7 +55,9 @@ class _NewVenueViewState extends State<NewVenueView> {
     final currentuser = AuthService.firebase().currentuser!;
     final email = currentuser.email!;
     final owner = await _noteServices.getUser(email: email);
-    return await _noteServices.createNote(owner: owner);
+    final newNote = await _noteServices.createNote(owner: owner);
+    _note = newNote;
+    return newNote;
   }
 
 
@@ -80,7 +91,7 @@ class _NewVenueViewState extends State<NewVenueView> {
         title: const Text('New Venue Page'),
       ),
       body: FutureBuilder(
-        future: createNewNote(),
+        future: createNewNote(context),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:

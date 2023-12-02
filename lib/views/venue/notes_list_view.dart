@@ -10,12 +10,12 @@ class NotesListView extends StatelessWidget {
 
   final List<DataBaseNote> notes;
   final DeleteNoteCallback onDeleteNote;
-
+  final DeleteNoteCallback onTap;
 
     const NotesListView({
     Key? key,
     required this.notes,
-    required this.onDeleteNote,
+    required this.onDeleteNote, required this.onTap,
   }) : super(key: key);
 
 
@@ -28,6 +28,9 @@ class NotesListView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final note = notes[index];
                           return ListTile(
+                            onTap:() {
+                              onTap(note);
+                            },
                             title: Text(note.text,
                             maxLines: 1,
                             softWrap: true,

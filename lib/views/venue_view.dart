@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
 import 'package:rexburgdancing/services/crud/notes_service.dart';
@@ -22,13 +24,6 @@ class _DanceVenueViewState extends State<DanceVenueView> {
   void initState() {
     _noteService = NoteServices();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _noteService.close();
-
-    super.dispose();
   }
 
   @override
@@ -71,7 +66,28 @@ class _DanceVenueViewState extends State<DanceVenueView> {
                 switch (snapshot.connectionState){
                   case ConnectionState.waiting:
                   case ConnectionState.active:
-                    return const Text('Wait for all notes...');
+                    if (snapshot.hasData){
+                      final allNotes =snapshot.data as List<DataBaseNote>;
+                      return ListView.builder(
+                        itemCount: allNotes.length,
+                        itemBuilder: (context, index) {
+                          final note = allNotes[index];
+                          return ListTile(
+                            title: Text(note.text,
+                            maxLines: 1,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            ),
+                            
+
+                          );
+                        },
+                      );
+                    }
+                    else{
+                      return const CircularProgressIndicator();
+                    }
+
                   default:
                     return const CircularProgressIndicator();
 

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:rexburgdancing/constant/routs.dart';
 import 'package:rexburgdancing/services/auth/auth_exception.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
-import '../utilities/show_error_dialog.dart';
+
+import '../utilities/error_dialog.dart';
 
 
 class RegisterView extends StatefulWidget {

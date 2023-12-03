@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
 import 'package:rexburgdancing/utilities/generic/get_argument.dart';
 import 'package:rexburgdancing/services/cloud/cloud_note.dart';
-import 'package:rexburgdancing/services/cloud/cloud_storage_exception.dart';
 import 'package:rexburgdancing/services/cloud/firebase_cloud_storage.dart';
 
 

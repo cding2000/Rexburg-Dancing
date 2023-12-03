@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
-import 'package:rexburgdancing/services/crud/notes_service.dart';
 import 'package:rexburgdancing/utilities/generic/get_argument.dart';
+import 'package:rexburgdancing/services/cloud/cloud_note.dart';
+import 'package:rexburgdancing/services/cloud/cloud_storage_exception.dart';
+import 'package:rexburgdancing/services/cloud/firebase_cloud_storage.dart';
+
+
 
 class NewVenueView extends StatefulWidget {
   const NewVenueView({super.key});
@@ -12,14 +16,14 @@ class NewVenueView extends StatefulWidget {
 
 class _NewVenueViewState extends State<NewVenueView> {
 
-  DataBaseNote? _note;
-  late final NoteServices _noteServices;
+  CloudNote? _note;
+  late final FirebaseCloudStorage _noteServices;
 
   late final TextEditingController _textController;
 
   @override void initState(){
 
-    _noteServices = NoteServices();
+    _noteServices = FirebaseCloudStorage();
     _textController = TextEditingController();
     super.initState();
   }
@@ -30,7 +34,7 @@ class _NewVenueViewState extends State<NewVenueView> {
       return;
     }
     final text = _textController.text;
-    await _noteServices.updateNote(note: note, text: text);
+    await _noteServices.updateNote(documentId: note.documentId, text: text);
   }
 
   void _setupTextControllerListenner(){
@@ -39,9 +43,9 @@ class _NewVenueViewState extends State<NewVenueView> {
 
   }
 
-  Future<DataBaseNote> createNewNote(BuildContext context) async{
+  Future<CloudNote> createNewNote(BuildContext context) async{
 
-    final widgetNote = context.getArgument<DataBaseNote>();
+    final widgetNote = context.getArgument<CloudNote>();
     if (widgetNote != null) {
       _note = widgetNote;
       _textController.text = widgetNote.text;
@@ -53,9 +57,8 @@ class _NewVenueViewState extends State<NewVenueView> {
       return exisitingNote;
     }
     final currentuser = AuthService.firebase().currentuser!;
-    final email = currentuser.email;
-    final owner = await _noteServices.getUser(email: email);
-    final newNote = await _noteServices.createNote(owner: owner);
+    final userId = currentuser.id;
+    final newNote = await _noteServices.createNewNote(ownerUserId: userId);
     _note = newNote;
     return newNote;
   }
@@ -66,13 +69,13 @@ class _NewVenueViewState extends State<NewVenueView> {
     final note = _note;
     final text = _textController.text;
     if (note != null && text.isNotEmpty){
-      await _noteServices.updateNote(note: note, text: text);
+      await _noteServices.updateNote(documentId: note.documentId, text: text);
     } 
   }
     void _deleteNoteIfTextIsEmpty(){
     final note = _note;
     if (_textController.text.isEmpty && note != null){
-      _noteServices.deleteNote(id: note.id);
+      _noteServices.deleteNote(documentId: note.documentId);
     }
   }
 

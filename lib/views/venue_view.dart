@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
-import 'package:rexburgdancing/services/crud/notes_service.dart';
+import 'package:rexburgdancing/services/cloud/cloud_note.dart';
+import 'package:rexburgdancing/services/cloud/firebase_cloud_storage.dart';
 import 'package:rexburgdancing/views/venue/notes_list_view.dart';
 
 import '../constant/routs.dart';
@@ -18,12 +19,12 @@ class DanceVenueView extends StatefulWidget {
 
 class _DanceVenueViewState extends State<DanceVenueView> {
 
-  late final NoteServices _noteService;
-  String get userEmail => AuthService.firebase().currentuser!.email;
+  late final FirebaseCloudStorage _noteService;
+  String get userId => AuthService.firebase().currentuser!.id;
 
   @override
   void initState() {
-    _noteService = NoteServices();
+    _noteService = FirebaseCloudStorage();
     super.initState();
   }
 
@@ -57,21 +58,16 @@ class _DanceVenueViewState extends State<DanceVenueView> {
       ],
       ),
       body: 
-      FutureBuilder(
-        future: _noteService.getOrCreateUser(email: userEmail),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState){
-            case ConnectionState.done:
-              return StreamBuilder(stream: _noteService.allNotes,
+      StreamBuilder(stream: _noteService.allNotes(ownerUserId: userId),
               builder: (context, snapshot) {
                 switch (snapshot.connectionState){
                   case ConnectionState.waiting:
                   case ConnectionState.active:
                     if (snapshot.hasData){
-                      final allNotes =snapshot.data as List<DataBaseNote>;
+                      final allNotes =snapshot.data as Iterable<CloudNote>;
                       return NotesListView(notes: allNotes,
                        onDeleteNote: (note) async {
-                       await _noteService.deleteNote(id: note.id);
+                       await _noteService.deleteNote(documentId: note.documentId);
                        },
                        onTap: (note) {
                           Navigator.of(context).pushNamed(newVenueRoute, arguments: note,);
@@ -86,17 +82,9 @@ class _DanceVenueViewState extends State<DanceVenueView> {
                     return const CircularProgressIndicator();
 
                 }
-              },);
-            default:
-              return const CircularProgressIndicator();
-          
-
-
-          }
-          
-        },
-      ),
-      );
+              },
+              ),
+              );
   }
 }
 

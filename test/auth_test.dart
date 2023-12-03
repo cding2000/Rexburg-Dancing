@@ -112,7 +112,7 @@ class MockAuthProvider implements AuthProvider{
     }
     if(email == '981237897@qq.com') throw UserNotFoundAuthException();
     if(password == "1234561234") throw WrongpasswordAuthException();
-    const user = AuthUser(isEmailVerfied: false, email: '1231231@qq.com');
+    const user = AuthUser(id: "my_id", isEmailVerfied: false, email: '1231231@qq.com');
     _user = user;
     return Future.value(user);
     }
@@ -140,7 +140,7 @@ class MockAuthProvider implements AuthProvider{
     if(user == null){
       throw UserNotFoundAuthException();
     }
-    const newUser = AuthUser(isEmailVerfied: true, email: '2139123@qq.com');
+    const newUser = AuthUser(id: 'myid', isEmailVerfied: true, email: '2139123@qq.com');
     _user = newUser;
 
 

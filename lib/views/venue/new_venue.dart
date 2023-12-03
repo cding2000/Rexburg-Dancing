@@ -53,7 +53,7 @@ class _NewVenueViewState extends State<NewVenueView> {
       return exisitingNote;
     }
     final currentuser = AuthService.firebase().currentuser!;
-    final email = currentuser.email!;
+    final email = currentuser.email;
     final owner = await _noteServices.getUser(email: email);
     final newNote = await _noteServices.createNote(owner: owner);
     _note = newNote;

@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
@@ -20,7 +19,7 @@ class DanceVenueView extends StatefulWidget {
 class _DanceVenueViewState extends State<DanceVenueView> {
 
   late final NoteServices _noteService;
-  String get userEmail => AuthService.firebase().currentuser!.email!;
+  String get userEmail => AuthService.firebase().currentuser!.email;
 
   @override
   void initState() {

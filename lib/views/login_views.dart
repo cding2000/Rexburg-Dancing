@@ -52,6 +52,7 @@ class _LoginViewState extends State<LoginView> {
               const SizedBox(height: 20),
               const Text('WELCOME!', style: TextStyle(fontSize: 30, color: Colors.amber),),
               const Text('LOG IN', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.amber),),
+              const SizedBox(height: 20),
               TextField(
                 controller: _email,
                 autocorrect: false,

@@ -74,6 +74,10 @@ flutter:
   assets:
     - accests/images/dance.jpg
     - accests/images/tavern.png
+    - accests/images/tavern2.png
+    - accests/images/tavern3.png
+    - accests/images/tavern4.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

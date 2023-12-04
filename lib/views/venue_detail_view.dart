@@ -45,7 +45,8 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
         )
       ],
       ),
-      body: SingleChildScrollView(
+      body: 
+        SingleChildScrollView(
         child: 
         Column(
         children:<Widget>[
@@ -53,7 +54,62 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
               elevation: 10,
               child: Column(
               children: <Widget>[
-              Image.asset("accests/images/tavern.png", ),
+              SizedBox(
+                height: 200,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell( 
+                      onTap: (){},
+                      child: Container(
+                        width: 200,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                        child: Image.asset('accests/images/tavern.png'),
+                      ),
+                  
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell( 
+                      onTap: (){},
+                      child: Container(
+                        width: 200,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                        child: Image.asset('accests/images/tavern2.png'),
+                      ),
+                  
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell( 
+                      onTap: (){},
+                      child: Container(
+                        width: 200,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                        child: Image.asset('accests/images/tavern3.png'),
+                      ),
+                  
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell( 
+                      onTap: (){},
+                      child: Container(
+                        width: 200,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                        child: Image.asset('accests/images/tavern4.png'),
+                      ),
+                      
+                  
+                    ),
+                  )
+                ],),
+              ),
               Text("Tavern",style: GoogleFonts.pacifico(fontSize: 40),),
               Column(
               crossAxisAlignment: CrossAxisAlignment.center,

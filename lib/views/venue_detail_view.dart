@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:google_fonts/google_fonts.dart";
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/routs.dart';
 import '../enums/menu_action.dart';
@@ -21,9 +22,6 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
     return Scaffold(
        appBar: AppBar(title: const Text('Tavern'),
       actions: [
-        IconButton(onPressed: (){
-          Navigator.of(context).pushNamed(newVenueRoute);
-        }, icon: const Icon(Icons.add)),
 
         PopupMenuButton<MenuAction>(onSelected: (value) async {
           switch (value)  {
@@ -55,7 +53,7 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
               child: Column(
               children: <Widget>[
               SizedBox(
-                height: 200,
+                height: 250,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
@@ -64,9 +62,9 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
                     child: InkWell( 
                       onTap: (){},
                       child: Container(
-                        width: 200,
+                        width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/tavern.png'),
+                        child: Image.asset('accests/images/tavern1.png'),
                       ),
                   
                     ),
@@ -76,7 +74,7 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
                     child: InkWell( 
                       onTap: (){},
                       child: Container(
-                        width: 200,
+                        width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
                         child: Image.asset('accests/images/tavern2.png'),
                       ),
@@ -88,7 +86,7 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
                     child: InkWell( 
                       onTap: (){},
                       child: Container(
-                        width: 200,
+                        width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
                         child: Image.asset('accests/images/tavern3.png'),
                       ),
@@ -100,9 +98,9 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
                     child: InkWell( 
                       onTap: (){},
                       child: Container(
-                        width: 200,
+                        width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/tavern4.png'),
+                        child: Image.asset('accests/images/tavern0.png'),
                       ),
                       
                   
@@ -111,14 +109,42 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
                 ],),
               ),
               Text("Tavern",style: GoogleFonts.pacifico(fontSize: 40),),
+              ElevatedButton(onPressed: (){
+                launch('https://www.instagram.com/thetavernidahofalls/');
+              }, child: const Text('Official Page')),
+
+              Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children:[
+              IconButton(onPressed: (){
+              Navigator.of(context).pushNamed(venueRoute);
+              }, icon: const Icon(Icons.my_library_music_outlined, size: 50,),),
+              IconButton(onPressed: (){
+              Navigator.of(context).pushNamed(venueRoute);
+              }, icon: Image.asset('accests/images/facebook.png',height: 45,) ),
+              IconButton(onPressed: (){
+              Navigator.of(context).pushNamed(venueRoute);
+              }, icon: Image.asset('accests/images/instagram.png',height: 45,) ),
+
+              ]),
+
+              const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text('song quest'),
+                Text('Facebook'),
+                Text('Instagram'),
+              ],
+              ),
               Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
               starRate(),
           ],
+          
         ),
-
+              
          ],
         ),
             ),

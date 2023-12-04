@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:rexburgdancing/constant/routs.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
 import 'package:rexburgdancing/views/login_views.dart';

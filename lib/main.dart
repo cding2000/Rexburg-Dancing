@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:rexburgdancing/constant/routs.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
 import 'package:rexburgdancing/views/login_views.dart';
 import 'package:rexburgdancing/views/register_views.dart';
 import 'package:rexburgdancing/views/venue/new_venue.dart';
+import 'package:rexburgdancing/views/venue_detail_view.dart';
 import 'package:rexburgdancing/views/venue_view.dart';
 import 'package:rexburgdancing/views/vierfy_email_view.dart';
 
@@ -22,6 +24,7 @@ void main() {
         venueRoute: (context) => const DanceVenueView(),
         verfiyEmailRoute: (context) => const VerfiyEmailView(),
         newVenueRoute:(context) =>  const NewVenueView(),
+        venueDetailRoute:(context) => const VenueDetailPage(),
 
       },
     ));

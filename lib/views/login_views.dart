@@ -36,16 +36,34 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login'),),
-      body: Column(
+      body: 
+       Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("accests/images/dance.jpg"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
+          ),
+        ),
+       child: Column(
             children: [
+              const SizedBox(height: 50),
+              const Icon(Icons.music_note, size: 100, color: Colors.brown,),
+              const SizedBox(height: 20),
+              const Text('WELCOME!', style: TextStyle(fontSize: 30, color: Colors.amber),),
+              const Text('LOG IN', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.amber),),
               TextField(
                 controller: _email,
                 autocorrect: false,
                 enableSuggestions: false,
                 keyboardType: TextInputType.emailAddress,
+                style: const TextStyle(color: Colors.amber),
                 decoration: const InputDecoration(
-                  hintText: 'Enter your email here'
+                  hintText: 'Enter your email here',
+                  hintStyle: TextStyle(color: Colors.amber),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)
+                  ),
                 ),
         
               ),
@@ -54,8 +72,14 @@ class _LoginViewState extends State<LoginView> {
                 obscureText: true,
                 autocorrect: false,
                 enableSuggestions: false,
+                style: const TextStyle(color: Colors.amber),
                 decoration: const InputDecoration(
-                  hintText: 'Enter your password here'
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)
+                  ),
+                  hintText: 'Enter your password here',
+                  hintStyle: TextStyle(color: Colors.amber),
+
                 ),
               ),
               TextButton(
@@ -68,7 +92,7 @@ class _LoginViewState extends State<LoginView> {
 
                     if(user?.isEmailVerfied ?? false){
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                    venueRoute, 
+                    venueRoute,
                     (route) => false,);
                     }
                     else{
@@ -82,7 +106,7 @@ class _LoginViewState extends State<LoginView> {
                   on WrongpasswordAuthException{await showErrorDialog(context, 'Wrong password',);}
                   on GenericAuthException{await showErrorDialog(context, 'Authentic error',);}
                 },
-                child: const Text('Login'),
+                child: const Text('Login',style: TextStyle(color: Colors.amber),),
                 ),
                 TextButton(onPressed: (){
                   Navigator.of(context).pushNamedAndRemoveUntil(registerRoute
@@ -90,10 +114,10 @@ class _LoginViewState extends State<LoginView> {
                   );
     
                 }, 
-                child: const Text('Not register yet? Register here.'),
+                child: const Text('Not register yet? Register here.',style: TextStyle(color: Colors.amber),),
                 )
             ],
           ),
-    );
+    ));
   }
 }

@@ -92,7 +92,7 @@ class _LoginViewState extends State<LoginView> {
 
                     if(user?.isEmailVerfied ?? false){
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                    venueRoute,
+                    venueDetailRoute,
                     (route) => false,);
                     }
                     else{

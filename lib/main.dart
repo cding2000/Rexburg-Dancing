@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rexburgdancing/constant/routs.dart';
 import 'package:rexburgdancing/services/auth/auth_service.dart';
+import 'package:rexburgdancing/views/kings_view.dart';
 import 'package:rexburgdancing/views/login_views.dart';
 import 'package:rexburgdancing/views/register_views.dart';
 import 'package:rexburgdancing/views/venue/new_venue.dart';
@@ -23,7 +24,8 @@ void main() {
         venueRoute: (context) => const DanceVenueView(),
         verfiyEmailRoute: (context) => const VerfiyEmailView(),
         newVenueRoute:(context) =>  const NewVenueView(),
-        venueDetailRoute:(context) => const VenueDetailPage(),
+        tavernRoute:(context) => const TavernView(),
+        kingRoundUpRoute:(context) => const KingRoundUpPage(),
 
       },
     ));
@@ -43,7 +45,7 @@ class HomePage extends StatelessWidget {
             final user = AuthService.firebase().currentuser;
             if (user != null){
               if (user.isEmailVerfied){
-                return const VenueDetailPage();
+                return const KingRoundUpPage();
               }
               else{ 
                 return const VerfiyEmailView();}

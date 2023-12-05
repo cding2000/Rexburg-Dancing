@@ -11,15 +11,15 @@ import '../services/auth/auth_service.dart';
 import '../utilities/log_out_dialog.dart';
 
 
-class TavernView extends StatefulWidget {
-  const TavernView({super.key});
+class KingRoundUpPage extends StatefulWidget {
+  const KingRoundUpPage({super.key});
 
 
   @override
-  State<TavernView> createState() => _TavernViewState();
+  State<KingRoundUpPage> createState() => _KingRoundUpPageState();
 }
 
-class _TavernViewState extends State<TavernView> {
+class _KingRoundUpPageState extends State<KingRoundUpPage> {
   
   final currentUser = FirebaseAuth.instance.currentUser;
   final textController = TextEditingController();
@@ -28,7 +28,7 @@ class _TavernViewState extends State<TavernView> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> get commentsCollection =>
-      _firestore.collection('comments');
+      _firestore.collection('king');
 
   @override
   void initState() {
@@ -78,7 +78,7 @@ class _TavernViewState extends State<TavernView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(title: const Text('Tavern'),
+       appBar: AppBar(title: const Text('King Round Up'),
       actions: [
 
         PopupMenuButton<MenuAction>(onSelected: (value) async {
@@ -122,7 +122,7 @@ class _TavernViewState extends State<TavernView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/tavern1.png'),
+                        child: Image.asset('accests/images/king1.png'),
                       ),
                   
                     ),
@@ -134,7 +134,7 @@ class _TavernViewState extends State<TavernView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/tavern2.png'),
+                        child: Image.asset('accests/images/king2.png'),
                       ),
                   
                     ),
@@ -146,7 +146,7 @@ class _TavernViewState extends State<TavernView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/tavern3.png'),
+                        child: Image.asset('accests/images/king3.png'),
                       ),
                   
                     ),
@@ -158,7 +158,7 @@ class _TavernViewState extends State<TavernView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/tavern0.png'),
+                        child: Image.asset('accests/images/king4.png'),
                       ),
                       
                   
@@ -169,10 +169,10 @@ class _TavernViewState extends State<TavernView> {
 
               const SizedBox(height: 10,),
               
-              Text("Tavern",style: GoogleFonts.pacifico(fontSize: 40),),
+              Text("King Round",style: GoogleFonts.pacifico(fontSize: 40),),
               const SizedBox(height: 10,),
               ElevatedButton(onPressed: (){
-                launch('https://www.instagram.com/thetavernidahofalls/');
+                launch('https://www.instagram.com/kingroundup_rexburg/');
               }, child: const Text('Official Page')),
 
               const SizedBox(height: 10,),

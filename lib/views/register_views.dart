@@ -58,6 +58,7 @@ class _RegisterViewState extends State<RegisterView> {
                 autocorrect: false,
                 enableSuggestions: false,
                 keyboardType: TextInputType.emailAddress,
+                style: const TextStyle(color: Color.fromRGBO(175, 159, 11, 1)),
                 decoration: const InputDecoration(
                   hintText: 'Enter your email here',
                   hintStyle: TextStyle(color: Color.fromRGBO(175, 159, 11, 1)),
@@ -69,6 +70,7 @@ class _RegisterViewState extends State<RegisterView> {
                 obscureText: true,
                 autocorrect: false,
                 enableSuggestions: false,
+                style: const TextStyle(color: Color.fromRGBO(175, 159, 11, 1)),
                 decoration: const InputDecoration(
                   hintText: 'Enter your password here',
                   hintStyle: TextStyle(color: Color.fromARGB(255, 175, 159, 11)),

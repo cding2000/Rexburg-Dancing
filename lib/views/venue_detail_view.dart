@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import "package:google_fonts/google_fonts.dart";
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -12,11 +14,15 @@ import '../utilities/log_out_dialog.dart';
 class VenueDetailPage extends StatefulWidget {
   const VenueDetailPage({super.key});
 
+
   @override
   State<VenueDetailPage> createState() => _VenueDetailPageState();
 }
 
 class _VenueDetailPageState extends State<VenueDetailPage> {
+  final currentUser = FirebaseAuth.instance.currentUser;
+  final textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +51,7 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
       ),
       body: 
         SingleChildScrollView(
-        child: 
+        child:
         Column(
         children:<Widget>[
           Card(
@@ -108,10 +114,16 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
                   )
                 ],),
               ),
+
+              const SizedBox(height: 10,),
+              
               Text("Tavern",style: GoogleFonts.pacifico(fontSize: 40),),
+              const SizedBox(height: 10,),
               ElevatedButton(onPressed: (){
                 launch('https://www.instagram.com/thetavernidahofalls/');
               }, child: const Text('Official Page')),
+
+              const SizedBox(height: 10,),
 
               Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -136,6 +148,28 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
                 Text('Instagram'),
               ],
               ),
+
+              const SizedBox(height: 10,),
+
+              const Row(
+                children:[
+                SizedBox(width: 40),
+                Text('Address:'),
+                InkWell(
+  onTap: _launchURL,
+  child: Text(
+    '210 Cleveland St, Idaho Falls, ID 83401',
+    style: TextStyle(
+      fontSize: 15,
+      color: Colors.blue,
+      decoration: TextDecoration.underline,
+    ),
+  ),
+),]
+
+              ),
+              const SizedBox(height: 20,),
+              
               Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -144,13 +178,25 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
           ],
           
         ),
+
+
+        TextField(
+          controller: textController,
+          obscureText: false,
+          decoration: const InputDecoration(
+                  hintText: 'Leave your comment here',
+                ),
+          
+      ),    
               
          ],
+         
         ),
             ),
           
         ])
-      )
+      ),
+
         );
     
   }
@@ -171,4 +217,14 @@ class _VenueDetailPageState extends State<VenueDetailPage> {
     );
   }
 
+}
+
+
+_launchURL() async {
+  Uri _url = Uri.parse('https://www.google.com/maps/place/210+Cleveland+St,+Idaho+Falls,+ID+83401/data=!4m2!3m1!1s0x53545eac8bae1565:0xd4f26411d9c0b6a8?sa=X&ved=2ahUKEwjh0-OlhfeCAxVED0QIHSCOAREQ8gF6BAgQEAA');
+  if (await launchUrl(_url)) {
+    await launchUrl(_url);
+  } else {
+    throw 'Could not launch $_url';
+  }
 }

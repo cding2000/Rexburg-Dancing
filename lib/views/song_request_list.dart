@@ -9,15 +9,15 @@ import '../constant/routs.dart';
 import '../enums/menu_action.dart';
 import '../utilities/log_out_dialog.dart';
 
-class DanceVenueView extends StatefulWidget {
-  const DanceVenueView({super.key});
+class SongListView extends StatefulWidget {
+  const SongListView({super.key});
 
 
   @override
-  State<DanceVenueView> createState() => _DanceVenueViewState();
+  State<SongListView> createState() => _SongListViewState();
 }
 
-class _DanceVenueViewState extends State<DanceVenueView> {
+class _SongListViewState extends State<SongListView> {
 
   late final FirebaseCloudStorage _noteService;
   String get userId => AuthService.firebase().currentuser!.id;
@@ -31,7 +31,7 @@ class _DanceVenueViewState extends State<DanceVenueView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Dance Venue In Rexburg'),
+      appBar: AppBar(title: const Text('Song Request List'),
       actions: [
         IconButton(onPressed: (){
           Navigator.of(context).pushNamed(newVenueRoute);

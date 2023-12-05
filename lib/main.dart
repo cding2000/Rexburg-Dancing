@@ -5,9 +5,11 @@ import 'package:rexburgdancing/views/dance_list.dart';
 import 'package:rexburgdancing/views/kings_view.dart';
 import 'package:rexburgdancing/views/login_views.dart';
 import 'package:rexburgdancing/views/register_views.dart';
+import 'package:rexburgdancing/views/roots_comment.dart';
+import 'package:rexburgdancing/views/roots_view.dart';
 import 'package:rexburgdancing/views/tavern_view.dart';
 import 'package:rexburgdancing/views/venue/new_venue.dart';
-import 'package:rexburgdancing/views/venue_view.dart';
+import 'package:rexburgdancing/views/song_request_list.dart';
 import 'package:rexburgdancing/views/vierfy_email_view.dart';
 
 void main() {
@@ -22,12 +24,14 @@ void main() {
       routes: {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
-        venueRoute: (context) => const DanceVenueView(),
+        songListRoute: (context) => const SongListView(),
         verfiyEmailRoute: (context) => const VerfiyEmailView(),
         newVenueRoute:(context) =>  const NewVenueView(),
         tavernRoute:(context) => const TavernView(),
         kingRoundUpRoute:(context) => const KingRoundUpPage(),
         danceListRoute:(context) => const DanceListView(),
+        rootsAndBootsRoute:(context) => const RootsAndBootsView(),
+        rootsCommentRoute:(context) => const RootsCommentView(),
 
       },
     ));
@@ -47,7 +51,7 @@ class HomePage extends StatelessWidget {
             final user = AuthService.firebase().currentuser;
             if (user != null){
               if (user.isEmailVerfied){
-                return const DanceListView();
+                return const RootsAndBootsView();
               }
               else{ 
                 return const VerfiyEmailView();}

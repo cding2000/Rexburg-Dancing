@@ -181,13 +181,13 @@ class _TavernViewState extends State<TavernView> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children:[
               IconButton(onPressed: (){
-              Navigator.of(context).pushNamed(venueRoute);
+              Navigator.of(context).pushNamed(songListRoute);
               }, icon: const Icon(Icons.my_library_music_outlined, size: 50,),),
               IconButton(onPressed: (){
-              Navigator.of(context).pushNamed(venueRoute);
+              Navigator.of(context).pushNamed(songListRoute);
               }, icon: Image.asset('accests/images/facebook.png',height: 45,) ),
               IconButton(onPressed: (){
-              Navigator.of(context).pushNamed(venueRoute);
+              Navigator.of(context).pushNamed(songListRoute);
               }, icon: Image.asset('accests/images/instagram.png',height: 45,) ),
 
               ]),

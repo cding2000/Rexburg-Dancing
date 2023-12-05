@@ -26,6 +26,7 @@ class _RootsCommentViewState extends State<RootsCommentView> {
         'UserEmail': currentUser!.email,
         'Message': textController.text,
         'TimeStamp': Timestamp.now(),
+        'Likes': [],
       });
     }
   }
@@ -70,9 +71,12 @@ class _RootsCommentViewState extends State<RootsCommentView> {
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
-                      final post = snapshot.data!.docs[index].data();
+                      final post = snapshot.data!.docs[index];
                       print('Post data: $post');
-                      return RootsPost(message: post['Message'], user: post['UserEmail']);
+                      return RootsPost(message: post['Message'], 
+                      user: post['UserEmail'],
+                      postId: post.id,
+                      likes: List<String>.from(post['Likes'] ?? []),);
                     },
                   );
                 } else if (snapshot.hasError) {

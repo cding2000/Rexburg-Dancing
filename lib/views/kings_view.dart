@@ -210,7 +210,7 @@ class _KingRoundUpPageState extends State<KingRoundUpPage> {
                 InkWell(
   onTap: _launchURL,
   child: Text(
-    '210 Cleveland St, Idaho Falls, ID 83401',
+    '309 Profit St. Rexburg ID 83440',
     style: TextStyle(
       fontSize: 15,
       color: Colors.blue,

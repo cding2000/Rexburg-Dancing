@@ -5,3 +5,4 @@ const verfiyEmailRoute = '/verify-email/';
 const newVenueRoute = '/new-venue/';
 const tavernRoute = '/tavern/';
 const kingRoundUpRoute = '/king-round-up/';
+const danceListRoute = 'dance-list';

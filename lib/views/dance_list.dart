@@ -18,7 +18,7 @@ class _DanceListViewState extends State<DanceListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Tavern'),
+      appBar: AppBar(title: const Text('Dance Venue'),
       actions: [
 
         PopupMenuButton<MenuAction>(onSelected: (value) async {
@@ -42,11 +42,9 @@ class _DanceListViewState extends State<DanceListView> {
       ],
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: <Widget>[
-            const SizedBox(
-              height: 30,
-            ),
             InkWell(
               onTap: () {
                 Navigator.push(
@@ -55,17 +53,37 @@ class _DanceListViewState extends State<DanceListView> {
                     builder: (context) => const TavernView(),
                   ),
                 );
-                print('Second Card Clicked!');
-                // You can navigate to another screen or perform any action here.
+                print('Tavern Card Clicked!');
               },
               splashColor: Colors.blue,
               child: Card(
                 elevation: 10,
-                child: Image.asset("accests/images/tavern1.png"), // Make sure to adjust the path based on your project structure
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Column(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: Image.asset(
+                        "accests/images/tavern1.png",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Tavern Venue',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             InkWell(
               onTap: () {
@@ -75,17 +93,37 @@ class _DanceListViewState extends State<DanceListView> {
                     builder: (context) => const KingRoundUpPage(),
                   ),
                 );
-                print('Second Card Clicked!');
-                // You can navigate to another screen or perform any action here.
+                print('King Round Up Card Clicked!');
               },
               splashColor: Colors.blue,
               child: Card(
                 elevation: 10,
-                child: Image.asset("accests/images/king2.png"), // Make sure to adjust the path based on your project structure
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Column(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: Image.asset(
+                        "accests/images/king2.png",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'King Round Up Venue',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
           ],
         ),

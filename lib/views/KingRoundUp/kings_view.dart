@@ -5,10 +5,10 @@ import "package:google_fonts/google_fonts.dart";
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../constant/routs.dart';
-import '../enums/menu_action.dart';
-import '../services/auth/auth_service.dart';
-import '../utilities/log_out_dialog.dart';
+import '../../constant/routs.dart';
+import '../../enums/menu_action.dart';
+import '../../services/auth/auth_service.dart';
+import '../../utilities/log_out_dialog.dart';
 
 
 class KingRoundUpPage extends StatefulWidget {

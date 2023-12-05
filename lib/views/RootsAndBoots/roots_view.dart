@@ -1,84 +1,29 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import "package:google_fonts/google_fonts.dart";
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:rexburgdancing/views/RootsAndBoots/roots_comment.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../constant/routs.dart';
-import '../enums/menu_action.dart';
-import '../services/auth/auth_service.dart';
-import '../utilities/log_out_dialog.dart';
+import '../../constant/routs.dart';
+import '../../enums/menu_action.dart';
+import '../../services/auth/auth_service.dart';
+import '../../utilities/log_out_dialog.dart';
 
 
-class TavernView extends StatefulWidget {
-  const TavernView({super.key});
+class RootsAndBootsView extends StatefulWidget {
+  const RootsAndBootsView({super.key});
 
 
   @override
-  State<TavernView> createState() => _TavernViewState();
+  State<RootsAndBootsView> createState() => _RootsAndBootsViewState();
 }
 
-class _TavernViewState extends State<TavernView> {
+class _RootsAndBootsViewState extends State<RootsAndBootsView> {
   
-  final currentUser = FirebaseAuth.instance.currentUser;
-  final textController = TextEditingController();
-  List<String> comments = [];
-
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  CollectionReference<Map<String, dynamic>> get commentsCollection =>
-      _firestore.collection('comments');
-
-  @override
-  void initState() {
-    super.initState();
-    _loadComments();
-  }
-
-  Future<void> _loadComments() async {
-    try {
-      QuerySnapshot<Map<String, dynamic>> snapshot =
-          await commentsCollection.get();
-
-      setState(() {
-        comments = snapshot.docs
-            .map((doc) => (doc.data()['comment'] ?? '') as String)
-            .toList();
-      });
-    } catch (e) {
-      print('Error loading comments: $e');
-    }
-  }
-
-  Future<void> _submitComment(String comment) async {
-    try {
-      await commentsCollection.add({'comment': comment});
-      _loadComments();
-    } catch (e) {
-      print('Error submitting comment: $e');
-    }
-  }
-
-  Future<void> _deleteComment(String comment) async {
-    try {
-      QuerySnapshot<Map<String, dynamic>> snapshot =
-          await commentsCollection.where('comment', isEqualTo: comment).get();
-
-      for (QueryDocumentSnapshot<Map<String, dynamic>> doc in snapshot.docs) {
-        await commentsCollection.doc(doc.id).delete();
-      }
-
-      _loadComments();
-    } catch (e) {
-      print('Error deleting comment: $e');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(title: const Text('Tavern'),
+       appBar: AppBar(title: const Text('Roots and Boots'),
       actions: [
 
         PopupMenuButton<MenuAction>(onSelected: (value) async {
@@ -122,7 +67,7 @@ class _TavernViewState extends State<TavernView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/tavern1.png'),
+                        child: Image.asset('accests/images/king1.png'),
                       ),
                   
                     ),
@@ -134,7 +79,7 @@ class _TavernViewState extends State<TavernView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/tavern2.png'),
+                        child: Image.asset('accests/images/king2.png'),
                       ),
                   
                     ),
@@ -146,7 +91,7 @@ class _TavernViewState extends State<TavernView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/tavern3.png'),
+                        child: Image.asset('accests/images/king3.png'),
                       ),
                   
                     ),
@@ -158,7 +103,7 @@ class _TavernViewState extends State<TavernView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/tavern0.png'),
+                        child: Image.asset('accests/images/king4.png'),
                       ),
                       
                   
@@ -169,10 +114,20 @@ class _TavernViewState extends State<TavernView> {
 
               const SizedBox(height: 10,),
               
-              Text("Tavern",style: GoogleFonts.pacifico(fontSize: 40),),
+              Text("Roots and Boots",style: GoogleFonts.pacifico(fontSize: 40),),
+              const SizedBox(height: 10,),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Wed/Fri/Sat: ", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17)),
+                  Text("7:30-12:00 am ", style: TextStyle(fontSize: 17),)
+                ],
+              ),
+              
+
               const SizedBox(height: 10,),
               ElevatedButton(onPressed: (){
-                launch('https://www.instagram.com/thetavernidahofalls/');
+                launch('https://www.instagram.com/kingroundup_rexburg/');
               }, child: const Text('Official Page')),
 
               const SizedBox(height: 10,),
@@ -204,13 +159,13 @@ class _TavernViewState extends State<TavernView> {
               const SizedBox(height: 10,),
 
               const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children:[
-                SizedBox(width: 40),
-                Text('Address:'),
+                Text('Address: '),
                 InkWell(
   onTap: _launchURL,
   child: Text(
-    '210 Cleveland St, Idaho Falls, ID 83401',
+    '433 Airport Rd, Rexburg ID',
     style: TextStyle(
       fontSize: 15,
       color: Colors.blue,
@@ -221,7 +176,16 @@ class _TavernViewState extends State<TavernView> {
 
               ),
               const SizedBox(height: 20,),
-              
+
+              const Column(
+                children: [
+                  Text('Pricing Detail:', style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),),
+                  Text('General Admission: \$5', style: TextStyle(fontSize: 18)),
+                  Text('Student Discount: \$4', style: TextStyle(fontSize: 18)),
+                ],
+              ),
+
+
               Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -229,54 +193,26 @@ class _TavernViewState extends State<TavernView> {
               starRate(),
           ],
           
+        
+
         ),
 
-        const SizedBox(height: 20,),
-                  const Text("Comments", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  // List of comments
-                  SizedBox(
-                    height: 100,
-                    child: ListView.builder(
-                      itemCount: comments.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(comments[index]),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              _deleteComment(comments[index]);
-                            },
-                          ),
-                        );
-                      },
-                    ),
+        TextButton(onPressed: (){
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RootsCommentView(),
                   ),
-                  // Text field for new comment
-                  TextField(
-                    controller: textController,
-                    obscureText: false,
-                    decoration: const InputDecoration(
-                  hintText: 'Leave your comment here',
-                ),
-                    // ... Existing code
-                  ),
-                  // Button to submit a comment
-                  ElevatedButton(
-        onPressed: () {
-          setState(() {
-            _submitComment(textController.text);
-            textController.clear();
-          });
-        },
-        child: const Text('Submit Comment'),
-      ),
-
-      
+                );
+    
+                }, 
+                child: const Text('Leave your comments here.',style: TextStyle(fontSize: 25),),
+                )
 
 
-              
          ],
-         
+        
+
         ),
             ),
           
@@ -307,7 +243,7 @@ class _TavernViewState extends State<TavernView> {
 
 
 _launchURL() async {
-  Uri _url = Uri.parse('https://www.google.com/maps/place/210+Cleveland+St,+Idaho+Falls,+ID+83401/data=!4m2!3m1!1s0x53545eac8bae1565:0xd4f26411d9c0b6a8?sa=X&ved=2ahUKEwjh0-OlhfeCAxVED0QIHSCOAREQ8gF6BAgQEAA');
+  Uri _url = Uri.parse('https://www.google.com/maps/place/433+Airport+Rd,+Rexburg,+ID+83440/@43.8354794,-111.8110441,17z/data=!3m1!4b1!4m6!3m5!1s0x53540bc86d6717ab:0xd54adccbb72e0270!8m2!3d43.8354756!4d-111.8084692!16s%2Fg%2F11c4dlr0tf?entry=ttu');
   if (await launchUrl(_url)) {
     await launchUrl(_url);
   } else {

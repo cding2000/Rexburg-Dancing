@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rexburgdancing/views/kings_view.dart';
-import 'package:rexburgdancing/views/tavern_view.dart';
+import 'package:rexburgdancing/views/KingRoundUp/kings_view.dart';
+import 'package:rexburgdancing/views/Tavern/tavern_view.dart';
 
 import '../constant/routs.dart';
 import '../enums/menu_action.dart';

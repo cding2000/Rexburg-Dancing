@@ -1,29 +1,84 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import "package:google_fonts/google_fonts.dart";
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:rexburgdancing/views/roots_comment.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../constant/routs.dart';
-import '../enums/menu_action.dart';
-import '../services/auth/auth_service.dart';
-import '../utilities/log_out_dialog.dart';
+import '../../constant/routs.dart';
+import '../../enums/menu_action.dart';
+import '../../services/auth/auth_service.dart';
+import '../../utilities/log_out_dialog.dart';
 
 
-class RootsAndBootsView extends StatefulWidget {
-  const RootsAndBootsView({super.key});
+class TavernView extends StatefulWidget {
+  const TavernView({super.key});
 
 
   @override
-  State<RootsAndBootsView> createState() => _RootsAndBootsViewState();
+  State<TavernView> createState() => _TavernViewState();
 }
 
-class _RootsAndBootsViewState extends State<RootsAndBootsView> {
+class _TavernViewState extends State<TavernView> {
   
+  final currentUser = FirebaseAuth.instance.currentUser;
+  final textController = TextEditingController();
+  List<String> comments = [];
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  CollectionReference<Map<String, dynamic>> get commentsCollection =>
+      _firestore.collection('comments');
+
+  @override
+  void initState() {
+    super.initState();
+    _loadComments();
+  }
+
+  Future<void> _loadComments() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> snapshot =
+          await commentsCollection.get();
+
+      setState(() {
+        comments = snapshot.docs
+            .map((doc) => (doc.data()['comment'] ?? '') as String)
+            .toList();
+      });
+    } catch (e) {
+      print('Error loading comments: $e');
+    }
+  }
+
+  Future<void> _submitComment(String comment) async {
+    try {
+      await commentsCollection.add({'comment': comment});
+      _loadComments();
+    } catch (e) {
+      print('Error submitting comment: $e');
+    }
+  }
+
+  Future<void> _deleteComment(String comment) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> snapshot =
+          await commentsCollection.where('comment', isEqualTo: comment).get();
+
+      for (QueryDocumentSnapshot<Map<String, dynamic>> doc in snapshot.docs) {
+        await commentsCollection.doc(doc.id).delete();
+      }
+
+      _loadComments();
+    } catch (e) {
+      print('Error deleting comment: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(title: const Text('Roots and Boots'),
+       appBar: AppBar(title: const Text('Tavern'),
       actions: [
 
         PopupMenuButton<MenuAction>(onSelected: (value) async {
@@ -67,7 +122,7 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/king1.png'),
+                        child: Image.asset('accests/images/tavern1.png'),
                       ),
                   
                     ),
@@ -79,7 +134,7 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/king2.png'),
+                        child: Image.asset('accests/images/tavern2.png'),
                       ),
                   
                     ),
@@ -91,7 +146,7 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/king3.png'),
+                        child: Image.asset('accests/images/tavern3.png'),
                       ),
                   
                     ),
@@ -103,7 +158,7 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/king4.png'),
+                        child: Image.asset('accests/images/tavern0.png'),
                       ),
                       
                   
@@ -114,10 +169,10 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
 
               const SizedBox(height: 10,),
               
-              Text("Roots and Boots",style: GoogleFonts.pacifico(fontSize: 40),),
+              Text("Tavern",style: GoogleFonts.pacifico(fontSize: 40),),
               const SizedBox(height: 10,),
               ElevatedButton(onPressed: (){
-                launch('https://www.instagram.com/kingroundup_rexburg/');
+                launch('https://www.instagram.com/thetavernidahofalls/');
               }, child: const Text('Official Page')),
 
               const SizedBox(height: 10,),
@@ -155,7 +210,7 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
                 InkWell(
   onTap: _launchURL,
   child: Text(
-    '309 Profit St. Rexburg ID 83440',
+    '210 Cleveland St, Idaho Falls, ID 83401',
     style: TextStyle(
       fontSize: 15,
       color: Colors.blue,
@@ -174,25 +229,54 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
               starRate(),
           ],
           
-        
         ),
 
-        TextButton(onPressed: (){
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RootsCommentView(),
+        const SizedBox(height: 20,),
+                  const Text("Comments", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  // List of comments
+                  SizedBox(
+                    height: 100,
+                    child: ListView.builder(
+                      itemCount: comments.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(comments[index]),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              _deleteComment(comments[index]);
+                            },
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                );
-    
-                }, 
-                child: const Text('Leave your comments here.',style: TextStyle(color: Colors.amber),),
-                )
+                  // Text field for new comment
+                  TextField(
+                    controller: textController,
+                    obscureText: false,
+                    decoration: const InputDecoration(
+                  hintText: 'Leave your comment here',
+                ),
+                    // ... Existing code
+                  ),
+                  // Button to submit a comment
+                  ElevatedButton(
+        onPressed: () {
+          setState(() {
+            _submitComment(textController.text);
+            textController.clear();
+          });
+        },
+        child: const Text('Submit Comment'),
+      ),
+
+      
 
 
+              
          ],
-        
-
+         
         ),
             ),
           

@@ -1,23 +1,62 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rexburgdancing/enums/text_box.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final currentUser = FirebaseAuth.instance.currentUser;
-  String? username;
-  String? bio;
-  final firestoreInstance = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> editField(String field) async {
-    String? newValue;
+  String? _username;
+  String? _bio;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        DocumentSnapshot documentSnapshot =
+            await _firestore.collection('users').doc(user.uid).get();
+
+        if (documentSnapshot.exists) {
+          setState(() {
+            _username = documentSnapshot['username'];
+            _bio = documentSnapshot['bio'];
+          });
+        }
+      }
+    } catch (e) {
+      print('Error loading user data: $e');
+    }
+  }
+
+  Future<void> _saveUserData() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await _firestore.collection('users').doc(user.uid).set({
+          'username': _username,
+          'bio': _bio,
+        });
+      }
+    } catch (e) {
+      print('Error saving user data: $e');
+    }
+  }
+
+  Future<void> _editField(String field, String initialValue) async {
+    String? newValue = initialValue;
 
     await showDialog(
       context: context,
@@ -25,10 +64,13 @@ class _ProfilePageState extends State<ProfilePage> {
         return AlertDialog(
           title: Text('Edit $field'),
           content: TextFormField(
-            initialValue: field == 'username' ? username : bio,
+            initialValue: initialValue,
             onChanged: (value) {
               newValue = value;
             },
+            decoration: InputDecoration(
+              labelText: 'Enter new $field',
+            ),
           ),
           actions: [
             TextButton(
@@ -41,22 +83,13 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () async {
                 setState(() {
                   if (field == 'username') {
-                    username = newValue;
+                    _username = newValue;
                   } else if (field == 'bio') {
-                    bio = newValue;
+                    _bio = newValue;
                   }
                 });
 
-                // Update the field in Firestore with the new value
-                final currentUser = this.currentUser;
-                if (currentUser != null) {
-                  await firestoreInstance
-                      .collection('users')
-                      .doc(currentUser.uid)
-                      .update({
-                    field: newValue,
-                  });
-                }
+                await _saveUserData();
 
                 // Close the dialog
                 Navigator.of(context).pop();
@@ -72,41 +105,56 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 198, 197, 197),
       appBar: AppBar(
-        title: const Text('Profile Page'),
+        title: Text('Profile Page'),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
       ),
-      body: ListView(
-        children: [
-          const SizedBox(height: 50),
-          const Icon(Icons.person, size: 72),
-          const SizedBox(height: 10),
-          Text(currentUser?.email ?? "No email available", textAlign: TextAlign.center),
-          const SizedBox(height: 50),
-          const Padding(
-            padding: EdgeInsets.only(left: 25),
-            child: Text('My Details'),
-          ),
-          MytextBox(
-            text: username ?? '',
-            sectionName: 'User Name',
-            onPressed: () {
-              editField('username');
-            },
-          ),
-          MytextBox(
-            text: bio ?? '',
-            sectionName: 'Bio',
-            onPressed: () {
-              editField('bio');
-            },
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 25),
-            child: Text('My Posts'),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.blue,
+                child: Icon(
+                  Icons.person,
+                  size: 72,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            ListTile(
+              title: Text(
+                'Username: ${_username ?? 'Not set'}',
+                style: TextStyle(fontSize: 18),
+              ),
+              onTap: () {
+                _editField('username', _username ?? '');
+              },
+            ),
+            const Divider(),
+            ListTile(
+              title: Text(
+                'Bio: ${_bio ?? 'Not set'}',
+                style: TextStyle(fontSize: 18),
+              ),
+              onTap: () {
+                _editField('bio', _bio ?? '');
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: ProfilePage(),
+  ));
 }

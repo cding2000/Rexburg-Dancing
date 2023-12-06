@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import "package:google_fonts/google_fonts.dart";
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:rexburgdancing/views/Tavern/tavern_comment.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constant/routs.dart';
@@ -21,59 +22,6 @@ class TavernView extends StatefulWidget {
 
 class _TavernViewState extends State<TavernView> {
   
-  final currentUser = FirebaseAuth.instance.currentUser;
-  final textController = TextEditingController();
-  List<String> comments = [];
-
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  CollectionReference<Map<String, dynamic>> get commentsCollection =>
-      _firestore.collection('comments');
-
-  @override
-  void initState() {
-    super.initState();
-    _loadComments();
-  }
-
-  Future<void> _loadComments() async {
-    try {
-      QuerySnapshot<Map<String, dynamic>> snapshot =
-          await commentsCollection.get();
-
-      setState(() {
-        comments = snapshot.docs
-            .map((doc) => (doc.data()['comment'] ?? '') as String)
-            .toList();
-      });
-    } catch (e) {
-      print('Error loading comments: $e');
-    }
-  }
-
-  Future<void> _submitComment(String comment) async {
-    try {
-      await commentsCollection.add({'comment': comment});
-      _loadComments();
-    } catch (e) {
-      print('Error submitting comment: $e');
-    }
-  }
-
-  Future<void> _deleteComment(String comment) async {
-    try {
-      QuerySnapshot<Map<String, dynamic>> snapshot =
-          await commentsCollection.where('comment', isEqualTo: comment).get();
-
-      for (QueryDocumentSnapshot<Map<String, dynamic>> doc in snapshot.docs) {
-        await commentsCollection.doc(doc.id).delete();
-      }
-
-      _loadComments();
-    } catch (e) {
-      print('Error deleting comment: $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,6 +119,14 @@ class _TavernViewState extends State<TavernView> {
               
               Text("Tavern",style: GoogleFonts.pacifico(fontSize: 40),),
               const SizedBox(height: 10,),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Wed/Fri/Sat: ", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17)),
+                  Text("7:30-12:00 am ", style: TextStyle(fontSize: 17),)
+                ],
+              ),
+              const SizedBox(height: 10,),
               ElevatedButton(onPressed: (){
                 launch('https://www.instagram.com/thetavernidahofalls/');
               }, child: const Text('Official Page')),
@@ -220,7 +176,19 @@ class _TavernViewState extends State<TavernView> {
 ),]
 
               ),
+
+
+              
               const SizedBox(height: 20,),
+
+              const Column(
+                children: [
+                  Text('Pricing Detail:', style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),),
+                  Text('General Admission: \$5', style: TextStyle(fontSize: 18)),
+                  Text('Student Discount: \$4', style: TextStyle(fontSize: 18)),
+                ],
+              ),
+              const SizedBox(height: 10,),
               
               Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -229,51 +197,19 @@ class _TavernViewState extends State<TavernView> {
               starRate(),
           ],
           
-        ),
+        ),    
 
-        const SizedBox(height: 20,),
-                  const Text("Comments", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  // List of comments
-                  SizedBox(
-                    height: 100,
-                    child: ListView.builder(
-                      itemCount: comments.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(comments[index]),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              _deleteComment(comments[index]);
-                            },
-                          ),
-                        );
-                      },
-                    ),
+        TextButton(onPressed: (){
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TavernCommentView(),
                   ),
-                  // Text field for new comment
-                  TextField(
-                    controller: textController,
-                    obscureText: false,
-                    decoration: const InputDecoration(
-                  hintText: 'Leave your comment here',
-                ),
-                    // ... Existing code
-                  ),
-                  // Button to submit a comment
-                  ElevatedButton(
-        onPressed: () {
-          setState(() {
-            _submitComment(textController.text);
-            textController.clear();
-          });
-        },
-        child: const Text('Submit Comment'),
-      ),
-
-      
-
-
+                );
+    
+                }, 
+                child: const Text('Leave your comments here.',style: TextStyle(fontSize: 25),),
+                )
               
          ],
          

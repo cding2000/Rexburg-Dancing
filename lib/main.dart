@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget {
             final user = AuthService.firebase().currentuser;
             if (user != null){
               if (user.isEmailVerfied){
-                return const DanceListView();
+                return const RootsAndBootsView();
               }
               else{ 
                 return const VerfiyEmailView();}

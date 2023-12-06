@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rexburgdancing/extension/list/drawer.dart';
 import 'package:rexburgdancing/views/KingRoundUp/kings_view.dart';
 import 'package:rexburgdancing/views/Tavern/tavern_view.dart';
+import 'package:rexburgdancing/views/login_views.dart';
+import 'package:rexburgdancing/views/profile_page.dart';
 
 import '../constant/routs.dart';
 import '../enums/menu_action.dart';
@@ -15,6 +18,18 @@ class DanceListView extends StatefulWidget {
 }
 
 class _DanceListViewState extends State<DanceListView> {
+
+  void gotoProfilePage(){
+    Navigator.pop(context);
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage(),));
+  }
+
+  void signout(){
+    Navigator.pop(context);
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginView(),));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +55,10 @@ class _DanceListViewState extends State<DanceListView> {
         },
         )
       ],
+      ),
+      drawer: Mydrawer(
+        onProfileTap: gotoProfilePage,
+        onSignOut: signout,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),

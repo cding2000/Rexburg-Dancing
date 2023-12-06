@@ -16,54 +16,60 @@ class KingsCommentView extends StatefulWidget {
 }
 
 class _KingsCommentViewState extends State<KingsCommentView> {
-
-    final currentUser = FirebaseAuth.instance.currentUser;
+  final currentUser = FirebaseAuth.instance.currentUser;
   final textController = TextEditingController();
 
-  void postMessage(){
-    if(textController.text.isNotEmpty){
-      FirebaseFirestore.instance.collection("king").add({
-        'UserEmail': currentUser!.email,
-        'Message': textController.text,
-        'TimeStamp': Timestamp.now(),
-        'Likes': [],
-      });
+  String? selectedPostId; // Track the selected post for editing
+
+  void postMessage() {
+    if (textController.text.isNotEmpty) {
+      if (selectedPostId == null) {
+        // Add new comment
+        FirebaseFirestore.instance.collection("king").add({
+          'UserEmail': currentUser!.email,
+          'Message': textController.text,
+          'TimeStamp': Timestamp.now(),
+          'Likes': [],
+        });
+      } else {
+        // Edit existing comment
+        FirebaseFirestore.instance.collection("king").doc(selectedPostId).update({
+          'Message': textController.text,
+        });
+        // Clear selectedPostId after editing
+        setState(() {
+          selectedPostId = null;
+        });
+      }
+
+      // Clear the text field after posting or editing
+      textController.clear();
     }
   }
-  
+
+  void editPost(String postId, String currentMessage) {
+    setState(() {
+      selectedPostId = postId;
+      textController.text = currentMessage;
+    });
+  }
+
+  void deletePost(String postId) {
+    // Implement your delete logic
+    FirebaseFirestore.instance.collection("king").doc(postId).delete();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 203, 202, 202),
-      appBar: AppBar(title: const Text('Kings Round Up Comment Page'),
-      actions: [
-
-        PopupMenuButton<MenuAction>(onSelected: (value) async {
-          switch (value)  {
-            case MenuAction.logout:
-              final shouldLogout = await showLogOutDialog(context);
-              if (shouldLogout){
-                await AuthService.firebase().logOut();
-                Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (_) => false);
-              }
-
-          }
-        },
-        itemBuilder: (context)
-        {
-          return const 
-          [ PopupMenuItem<MenuAction>(value: MenuAction.logout, child: Text('Log out')) ];
-          
-        },
-        )
-      ],
+      appBar: AppBar(
+        title: const Text('Kings Round Up Comment Page'),
       ),
-      body:
-      
-       Column(
-          children: [
-            Expanded(child: 
-            StreamBuilder(
+      body: Column(
+        children: [
+          Expanded(
+            child: StreamBuilder(
               stream: FirebaseFirestore.instance.collection("king").orderBy('TimeStamp', descending: false).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -73,10 +79,19 @@ class _KingsCommentViewState extends State<KingsCommentView> {
                     itemBuilder: (context, index) {
                       final post = snapshot.data!.docs[index];
                       print('Post data: $post');
-                      return KingsPost(message: post['Message'], 
-                      user: post['UserEmail'],
-                      postId: post.id,
-                      likes: List<String>.from(post['Likes'] ?? []),);
+                      return KingsPost(
+                        message: post['Message'],
+                        user: post['UserEmail'],
+                        postId: post.id,
+                        likes: List<String>.from(post['Likes'] ?? []),
+                        currentUser: currentUser?.email,
+                        onEdit: () {
+                          editPost(post.id, post['Message']);
+                        },
+                        onDelete: () {
+                          deletePost(post.id);
+                        },
+                      );
                     },
                   );
                 } else if (snapshot.hasError) {
@@ -86,28 +101,29 @@ class _KingsCommentViewState extends State<KingsCommentView> {
                 return const Center(child: CircularProgressIndicator());
               },
             ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                      children: [
-              Expanded(child: TextField(
-                controller: textController,
-                decoration: const InputDecoration(
-                    hintText: 'Leave your comment here',
-                    enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black)
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: textController,
+                    decoration: const InputDecoration(
+                      hintText: 'Leave your comment here',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
                     ),
+                    obscureText: false,
                   ),
-                  obscureText: false,
-              )
-              ),
-              IconButton(onPressed: postMessage, icon: const Icon(Icons.arrow_circle_up)),
-                      ],
-                    ),
-            )
-          ],
-        ),
+                ),
+                IconButton(onPressed: postMessage, icon: const Icon(Icons.arrow_circle_up)),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

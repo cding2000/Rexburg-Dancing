@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rexburgdancing/views/KingRoundUp/kings_post.dart';
-import 'package:rexburgdancing/views/RootsAndBoots/roots_post.dart';
 
 import '../../constant/routs.dart';
 import '../../enums/menu_action.dart';

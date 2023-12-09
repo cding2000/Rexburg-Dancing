@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rexburgdancing/extension/list/drawer.dart';
 import 'package:rexburgdancing/views/KingRoundUp/kings_view.dart';
+import 'package:rexburgdancing/views/RootsAndBoots/roots_view.dart';
 import 'package:rexburgdancing/views/Tavern/tavern_view.dart';
 import 'package:rexburgdancing/views/login_views.dart';
 import 'package:rexburgdancing/views/profile_page.dart';
@@ -143,6 +144,43 @@ class _DanceListViewState extends State<DanceListView> {
             ),
             const SizedBox(
               height: 20,
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RootsAndBootsView(),
+                  ),
+                );
+                print('King Round Up Card Clicked!');
+              },
+              splashColor: Colors.blue,
+              child: Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Column(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: Image.asset(
+                        "accests/images/king2.png",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Roots and Boots Venue',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

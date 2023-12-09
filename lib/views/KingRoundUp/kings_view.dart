@@ -298,7 +298,7 @@ class _KingRoundUpPageState extends State<KingRoundUpPage> {
 
   _launchURL() async {
     Uri _url = Uri.parse(
-        'https://www.google.com/maps/place/210+Cleveland+St,+Idaho+Falls,+ID+83401/data=!4m2!3m1!1s0x53545eac8bae1565:0xd4f26411d9c0b6a8?sa=X&ved=2ahUKEwjh0-OlhfeCAxVED0QIHSCOAREQ8gF6BAgQEAA');
+        'https://www.google.com/maps/place/309+Profit+St,+Rexburg,+ID+83440/@43.8500896,-111.7747611,17z/data=!4m15!1m8!3m7!1s0x53540a17792a27b7:0xed6bcbda5fbc4525!2s309+Profit+St,+Rexburg,+ID+83440!3b1!8m2!3d43.8500896!4d-111.7747611!16s%2Fg%2F11vkrwl2ht!3m5!1s0x53540a17792a27b7:0xed6bcbda5fbc4525!8m2!3d43.8500896!4d-111.7747611!16s%2Fg%2F11vkrwl2ht?entry=ttu');
     if (await launchUrl(_url)) {
       await launchUrl(_url);
     } else {

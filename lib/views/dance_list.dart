@@ -73,7 +73,6 @@ class _DanceListViewState extends State<DanceListView> {
                     builder: (context) => const TavernView(),
                   ),
                 );
-                print('Tavern Card Clicked!');
               },
               splashColor: Colors.blue,
               child: Card(
@@ -113,7 +112,6 @@ class _DanceListViewState extends State<DanceListView> {
                     builder: (context) => const KingRoundUpPage(),
                   ),
                 );
-                print('King Round Up Card Clicked!');
               },
               splashColor: Colors.blue,
               child: Card(
@@ -153,7 +151,6 @@ class _DanceListViewState extends State<DanceListView> {
                     builder: (context) => const RootsAndBootsView(),
                   ),
                 );
-                print('King Round Up Card Clicked!');
               },
               splashColor: Colors.blue,
               child: Card(
@@ -166,7 +163,7 @@ class _DanceListViewState extends State<DanceListView> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15.0),
                       child: Image.asset(
-                        "accests/images/king2.png",
+                        "accests/images/roots1.png",
                         fit: BoxFit.cover,
                       ),
                     ),

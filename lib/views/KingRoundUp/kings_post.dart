@@ -65,11 +65,11 @@ class _KingsPostState extends State<KingsPost> {
           Column(
             children: [
               Text(widget.user),
-              Text(widget.message),
+              Text(widget.message,),
               if (widget.currentUser == widget.user)
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    const SizedBox(width: 171,),
                     IconButton(
                       onPressed: widget.onDelete,
                       icon: const Icon(Icons.delete),

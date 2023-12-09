@@ -67,7 +67,7 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/king1.png'),
+                        child: Image.asset('accests/images/roots1.png'),
                       ),
                   
                     ),
@@ -79,7 +79,7 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/king2.png'),
+                        child: Image.asset('accests/images/roots2.png'),
                       ),
                   
                     ),
@@ -91,7 +91,7 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/king3.png'),
+                        child: Image.asset('accests/images/roots3.png'),
                       ),
                   
                     ),
@@ -103,7 +103,7 @@ class _RootsAndBootsViewState extends State<RootsAndBootsView> {
                       child: Container(
                         width: 350,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                        child: Image.asset('accests/images/king4.png'),
+                        child: Image.asset('accests/images/roots4.png'),
                       ),
                       
                   

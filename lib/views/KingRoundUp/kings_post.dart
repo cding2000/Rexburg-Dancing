@@ -33,7 +33,7 @@ class _KingsPostState extends State<KingsPost> {
       isLiked = !isLiked;
     });
 
-    DocumentReference postRef = FirebaseFirestore.instance.collection('king').doc(widget.postId);
+    DocumentReference postRef = FirebaseFirestore.instance.collection('king_comment').doc(widget.postId);
 
     if (isLiked) {
       postRef.update({

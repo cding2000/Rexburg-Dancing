@@ -31,50 +31,56 @@ class _KingRoundUpPageState extends State<KingRoundUpPage> {
   }
 
   Future<void> _loadRatingData() async {
-    try {
-      User? user = _auth.currentUser;
+  try {
+    User? user = _auth.currentUser;
 
-      // Fetch the ratings data from Firestore
-      QuerySnapshot querySnapshot = await _firestore.collection('ratings').get();
-      int totalRatings = 0;
-      double totalRating = 0;
+    // Fetch the ratings data from Firestore
+    QuerySnapshot querySnapshot = await _firestore.collection('king_ratings').get();
+    int totalRatings = 0;
+    double totalRating = 0;
 
-      Map<String, double> latestRatings = {};
+    Map<String, double> latestRatings = {};
 
-      querySnapshot.docs.forEach((doc) {
+    querySnapshot.docs.forEach((doc) {
+      Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+      // Check if the required fields exist in the document
+      if (data != null && data['userId'] != null && data['rating'] != null) {
         // Check if the rating is from the current user
-        if (user != null && doc['userId'] == user.uid) {
+        if (user != null && data['userId'] == user.uid) {
           // Update the latest rating for the current user
-          latestRatings[user.uid] = doc['rating'];
+          latestRatings[user.uid] = data['rating'];
         } else {
           // Update the latest rating for other users
-          latestRatings[doc['userId']] =
-              latestRatings[doc['userId']] == null || latestRatings[doc['userId']]! < doc['rating']
-                  ? doc['rating']
-                  : latestRatings[doc['userId']]!;
+          latestRatings[data['userId']] =
+              latestRatings[data['userId']] == null || latestRatings[data['userId']]! < data['rating']
+                  ? data['rating']
+                  : latestRatings[data['userId']]!;
         }
 
         totalRatings++;
-        totalRating += latestRatings[doc['userId']]!;
-      });
-
-      if (totalRatings > 0) {
-        setState(() {
-          numberOfRatings = totalRatings;
-          averageRating = totalRating / totalRatings;
-        });
+        totalRating += latestRatings[data['userId']]!;
       }
-    } catch (e) {
-      print('Error loading rating data: $e');
+    });
+
+    if (totalRatings > 0) {
+      setState(() {
+        numberOfRatings = totalRatings;
+        averageRating = totalRating / totalRatings;
+      });
     }
+  } catch (e) {
+    print('Error loading rating data: $e');
   }
+}
+
 
   Future<void> _submitRating(double rating) async {
     try {
       User? user = _auth.currentUser;
       if (user != null) {
         // Store or update the latest rating for the current user in Firestore
-        await _firestore.collection('ratings').doc(user.uid).set({
+        await _firestore.collection('king_ratings').doc(user.uid).set({
           'userId': user.uid,
           'rating': rating,
         });

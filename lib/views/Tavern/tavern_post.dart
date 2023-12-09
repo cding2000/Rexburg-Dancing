@@ -9,7 +9,11 @@ class TavernPost extends StatefulWidget {
   final String user;
   final String postId;
   final List<String> likes;
-  const TavernPost({super.key, required this.message, required this.user, required this.postId, required this.likes});
+  final String? currentUser;
+  final VoidCallback? onEdit;
+  final VoidCallback? onDelete;
+
+  const TavernPost({super.key, required this.message, required this.user, required this.postId, required this.likes, this.onEdit, this.onDelete, this.currentUser});
 
   @override
   State<TavernPost> createState() => _TavernPostState();
@@ -26,53 +30,60 @@ class _TavernPostState extends State<TavernPost> {
     isLiked = widget.likes.contains(currentUser.email);
   }
 
-  void toggleLike(){
+  void toggleLike() {
     setState(() {
       isLiked = !isLiked;
     });
 
-    DocumentReference postRef = 
-      FirebaseFirestore.instance.collection('tavern').doc(widget.postId);
+    DocumentReference postRef = FirebaseFirestore.instance.collection('tavern_comment').doc(widget.postId);
 
-      if (isLiked){
-        postRef.update({
+    if (isLiked) {
+      postRef.update({
         "Likes": FieldValue.arrayUnion([currentUser.email])
-        });
-      }
-      else{
-        postRef.update({
+      });
+    } else {
+      postRef.update({
         "Likes": FieldValue.arrayRemove([currentUser.email])
-        });
-      }
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.white, borderRadius:BorderRadius.circular(8)),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
       margin: const EdgeInsets.only(top: 25, left: 25, right: 25),
       padding: const EdgeInsets.all(25),
       child: Row(
         children: [
           Column(
             children: [
-              LikeButton(isLiked: isLiked, onTap:toggleLike,),
+              LikeButton(isLiked: isLiked, onTap: toggleLike),
               const SizedBox(height: 5,),
               Text(widget.likes.length.toString()),
-
             ],
           ),
           const SizedBox(width: 20,),
-
           Column(
             children: [
               Text(widget.user),
-              Text(widget.message),
-    
-    
+              Text(widget.message,),
+              if (widget.currentUser == widget.user)
+                Row(
+                  children: [
+                    const SizedBox(width: 171,),
+                    IconButton(
+                      onPressed: widget.onDelete,
+                      icon: const Icon(Icons.delete),
+                    ),
+                    IconButton(
+                      onPressed: widget.onEdit,
+                      icon: const Icon(Icons.edit),
+                    ),
+                  ],
+                ),
             ],
           )
-    
         ],
       ),
     );

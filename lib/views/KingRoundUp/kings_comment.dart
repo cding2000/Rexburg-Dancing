@@ -19,7 +19,7 @@ class _KingsCommentViewState extends State<KingsCommentView> {
     if (textController.text.isNotEmpty) {
       if (selectedPostId == null) {
         // Add new comment
-        FirebaseFirestore.instance.collection("king").add({
+        FirebaseFirestore.instance.collection("king_comment").add({
           'UserEmail': currentUser!.email,
           'Message': textController.text,
           'TimeStamp': Timestamp.now(),
@@ -27,7 +27,7 @@ class _KingsCommentViewState extends State<KingsCommentView> {
         });
       } else {
         // Edit existing comment
-        FirebaseFirestore.instance.collection("king").doc(selectedPostId).update({
+        FirebaseFirestore.instance.collection("king_comment").doc(selectedPostId).update({
           'Message': textController.text,
         });
         // Clear selectedPostId after editing
@@ -50,7 +50,7 @@ class _KingsCommentViewState extends State<KingsCommentView> {
 
   void deletePost(String postId) {
     // Implement your delete logic
-    FirebaseFirestore.instance.collection("king").doc(postId).delete();
+    FirebaseFirestore.instance.collection("king_comment").doc(postId).delete();
   }
 
   @override
@@ -64,7 +64,7 @@ class _KingsCommentViewState extends State<KingsCommentView> {
         children: [
           Expanded(
             child: StreamBuilder(
-              stream: FirebaseFirestore.instance.collection("king").orderBy('TimeStamp', descending: false).snapshots(),
+              stream: FirebaseFirestore.instance.collection("king_comment").orderBy('TimeStamp', descending: false).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   print('Number of documents: ${snapshot.data!.docs.length}');

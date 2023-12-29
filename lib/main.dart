@@ -10,6 +10,7 @@ import 'package:rexburgdancing/views/register_views.dart';
 import 'package:rexburgdancing/views/RootsAndBoots/roots_comment.dart';
 import 'package:rexburgdancing/views/RootsAndBoots/roots_view.dart';
 import 'package:rexburgdancing/views/Tavern/tavern_view.dart';
+import 'package:rexburgdancing/views/reset_password_view.dart';
 import 'package:rexburgdancing/views/venue/new_venue.dart';
 import 'package:rexburgdancing/views/song_request_list.dart';
 import 'package:rexburgdancing/views/vierfy_email_view.dart';
@@ -36,6 +37,9 @@ void main() {
         danceListRoute:(context) => const DanceListView(),
         rootsAndBootsRoute:(context) => const RootsAndBootsView(),
         rootsCommentRoute:(context) => const RootsCommentView(),
+        resetPasswordRote:(context) => const ResetPasswordView(),
+
+        
 
       },
     ));

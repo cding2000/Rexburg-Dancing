@@ -110,6 +110,16 @@ class _LoginViewState extends State<LoginView> {
                 child: const Text('Login',style: TextStyle(color: Colors.amber),),
                 ),
                 TextButton(onPressed: (){
+                  Navigator.of(context).pushNamedAndRemoveUntil(resetPasswordRote
+                  , (route) => false,
+                  );
+    
+                }, 
+                child: const Text('Reset password here.',style: TextStyle(color: Colors.amber),),
+                ),
+                
+
+                TextButton(onPressed: (){
                   Navigator.of(context).pushNamedAndRemoveUntil(registerRoute
                   , (route) => false,
                   );

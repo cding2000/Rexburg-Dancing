@@ -10,3 +10,4 @@ const kingsCommentRoute = '/kings-comments/';
 const danceListRoute = '/dance-list/';
 const rootsAndBootsRoute = '/roots-and-boots/';
 const rootsCommentRoute = '/roots-comment/';
+const resetPasswordRote = '/reset-password/';

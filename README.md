@@ -1,6 +1,8 @@
 # rexburgdancing
 
-A new Flutter project.
+This is a cross-platform mobile application called Rexburg Dancing. The goal of this application is to help people who are new to the area find a place to dance in East Idaho. 
+This app contains functions like login, sign-in, email verification, resetting the password, viewing all the dance venues, leaving comments, sending song requests, and rating venues.
+This mobile application will be released to Google Play Store and IOS Store, once all the application is tested.
 
 ## Getting Started
 

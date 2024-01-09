@@ -35,6 +35,7 @@ class _DanceListViewState extends State<DanceListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Dance Venue'),
+      
       actions: [
 
         PopupMenuButton<MenuAction>(onSelected: (value) async {

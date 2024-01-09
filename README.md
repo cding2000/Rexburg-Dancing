@@ -33,7 +33,9 @@ This is a cross-platform mobile application designed to help people who are pass
 
 ## Screenshots
 
-![Register Page](accests/images/register page.png)
+![login page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/236ba8d9-831a-4044-b8b5-722ef13db8e3)
+![register page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/4cb25083-9b67-4dc9-9e71-3d970b7c4c35)
+![detail page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/5381bb4e-58e9-4fef-a1b6-154e63d3e976)
 
 ### Prerequisites
 

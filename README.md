@@ -33,8 +33,7 @@ This is a cross-platform mobile application designed to help people who are pass
 
 ## Screenshots
 
-*Include screenshots or gifs showcasing your app. You can organize them in a grid or present them as a carousel.*
-
+![Register Page](accests/images/register page.png)
 
 ### Prerequisites
 

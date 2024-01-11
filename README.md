@@ -25,8 +25,6 @@ Rexburg Dancing is an intuitive mobile app designed to assist dance enthusiasts 
 
 ## Screenshots
 
-## Screenshots
-
 ### Login Page
 
 ![Login Page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/236ba8d9-831a-4044-b8b5-722ef13db8e3 "Login Page")

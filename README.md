@@ -41,11 +41,29 @@ To get started with Rexburg Dancing, make sure you have the following prerequisi
 ### Installation
 
 ```bash
+# Navigate to the main page of the repository
+https://github.com/cding2000/Rexburg-Dancing
+
+# Copy the URL for the repository
+To clone the repository using HTTPS, click under "HTTPS"
+
+# Open Git Bash
+
+# Change the current working directory to the location where you want the cloned directory.
+
 # Clone the repository
 git clone [git@github.com:cding2000/Rexburg-Dancing.git](https://github.com/cding2000/Rexburg-Dancing.git)
 
-# Navigate to the project directory
-cd yourapp
-
 # Install dependencies
-flutter pub get
+flutter pub get firebase_core
+flutter pub get firebase_auth
+flutter pub get cloud_firestore
+flutter pub get firebase_analytics
+flutter pub get sqflite
+flutter pub path_provider
+flutter pub path
+flutter pub share_plus
+flutter pub url_launcher
+flutter pub google_fonts
+flutter pub flutter_rating_bar
+

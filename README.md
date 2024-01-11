@@ -66,6 +66,7 @@ flutter pub share_plus
 flutter pub url_launcher
 flutter pub google_fonts
 flutter pub flutter_rating_bar
+```
 
 ## Usage
 

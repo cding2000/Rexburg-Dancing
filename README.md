@@ -67,3 +67,13 @@ flutter pub url_launcher
 flutter pub google_fonts
 flutter pub flutter_rating_bar
 
+## Usage
+
+1. Open the Rexburg Dancing app on your mobile device.
+2. Sign in or create a new account to access personalized features.
+3. Explore the list of dance venues in the area using the Venue Discovery feature.
+4. View and submit ratings for your favorite dance venues.
+5. Make song requests to add your favorite tunes to the venue's playlist.
+6. Enjoy a seamless and engaging experience with the Rexburg Dancing community!
+
+

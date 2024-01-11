@@ -37,7 +37,7 @@ The login page is the first screen users encounter when opening the Rexburg Danc
 New users can easily create an account using the Register Page. The registration process is straightforward, ensuring a smooth onboarding experience.
 
 ### Email Verify Page
-![Email Verify](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/610320bd-b13a-4671-be5d-94f979a19d4b.png)
+![email verify](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/13073d29-70d6-4805-a421-d3cf10f2933a)
 
 New users can verify their account using the Email Verfiy Page. 
 

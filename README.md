@@ -36,10 +36,31 @@ The login page is the first screen users encounter when opening the Rexburg Danc
 
 New users can easily create an account using the Register Page. The registration process is straightforward, ensuring a smooth onboarding experience.
 
+### Email Verify Page
+![Email Verify](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/610320bd-b13a-4671-be5d-94f979a19d4b.png)
+
+New users can verify their account using the Email Verfiy Page. 
+
+### Profile Page
+![Profile Page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/496efb19-bef0-4374-8c91-474ea80f43ce.png)
+
+The Profile Page allows users to manage their account settings and view personalized information.
+
 ### Detail Page
 ![Detail Page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/5381bb4e-58e9-4fef-a1b6-154e63d3e976 "Detail Page")
 
 The Detail Page provides comprehensive information about a selected dance venue. Users can explore ratings, reviews, and additional details to make informed decisions about their dancing experience.
+
+### Comment Page
+![Comment Page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/715dc073-f601-48d2-b773-bf1d6b9e114b.png)
+
+The Comment Page allows users to share their thoughts and feedback about a specific dance venue.
+
+### Song Request
+![Song Request](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/e1ea3c82-1c83-46d0-9368-91da06a2d16a.png)
+
+Users can submit song requests to influence the playlist at their favorite dance venues.
+
 
 ### Prerequisites
 
@@ -70,12 +91,12 @@ flutter pub get firebase_auth
 flutter pub get cloud_firestore
 flutter pub get firebase_analytics
 flutter pub get sqflite
-flutter pub path_provider
-flutter pub path
-flutter pub share_plus
-flutter pub url_launcher
-flutter pub google_fonts
-flutter pub flutter_rating_bar
+flutter pub get path_provider
+flutter pub get path
+flutter pub get share_plus
+flutter pub get url_launcher
+flutter pub get google_fonts
+flutter pub get flutter_rating_bar
 ```
 
 ## Usage

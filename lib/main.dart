@@ -28,7 +28,7 @@ void main() {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
         songListRoute: (context) => const SongListView(),
-        verfiyEmailRoute: (context) => const VerfiyEmailView(),
+        verfiyEmailRoute: (context) => const VerifyEmailView(),
         newVenueRoute:(context) =>  const NewVenueView(),
         tavernRoute:(context) => const TavernView(),
         tavernCommentRoute:(context) => const TavernCommentView(),
@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
                 return const DanceListView();
               }
               else{ 
-                return const VerfiyEmailView();}
+                return const VerifyEmailView();}
             }
             else{
               return const LoginView();

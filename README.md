@@ -25,9 +25,23 @@ Rexburg Dancing is an intuitive mobile app designed to assist dance enthusiasts 
 
 ## Screenshots
 
-![Login Page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/236ba8d9-831a-4044-b8b5-722ef13db8e3)
-![Register Page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/4cb25083-9b67-4dc9-9e71-3d970b7c4c35)
-![Detail Page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/5381bb4e-58e9-4fef-a1b6-154e63d3e976)
+## Screenshots
+
+### Login Page
+
+![Login Page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/236ba8d9-831a-4044-b8b5-722ef13db8e3 "Login Page")
+
+The login page is the first screen users encounter when opening the Rexburg Dancing app. It provides a secure and user-friendly interface for authentication.
+
+### Register Page
+![Register Page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/4cb25083-9b67-4dc9-9e71-3d970b7c4c35 "Register Page")
+
+New users can easily create an account using the Register Page. The registration process is straightforward, ensuring a smooth onboarding experience.
+
+### Detail Page
+![Detail Page](https://github.com/cding2000/Rexburg-Dancing/assets/82928785/5381bb4e-58e9-4fef-a1b6-154e63d3e976 "Detail Page")
+
+The Detail Page provides comprehensive information about a selected dance venue. Users can explore ratings, reviews, and additional details to make informed decisions about their dancing experience.
 
 ### Prerequisites
 

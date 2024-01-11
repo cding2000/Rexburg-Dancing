@@ -12,8 +12,6 @@ Welcome to Rexburg Dancing, a sophisticated cross-platform mobile application cr
 - [Usage](#usage)
 - [Dependencies](#dependencies)
 - [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
 
 ## Description
 
@@ -76,5 +74,30 @@ flutter pub flutter_rating_bar
 4. View and submit ratings for your favorite dance venues.
 5. Make song requests to add your favorite tunes to the venue's playlist.
 6. Enjoy a seamless and engaging experience with the Rexburg Dancing community!
+
+## Dependencies
+
+- [Flutter](https://flutter.dev/docs/get-started/install): A UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+
+- [Firebase](https://console.firebase.google.com/): A comprehensive platform provided by Google for building and managing mobile and web applications. Rexburg Dancing utilizes the following Firebase packages:
+
+  - `firebase_core`: Essential for initializing and configuring Firebase services.
+  - `firebase_auth`: Enables user authentication, including sign-in and password reset functionalities.
+  - `cloud_firestore`: A NoSQL database for storing and syncing data in real-time.
+  - `firebase_analytics`: Provides analytics services to track user engagement and app performance.
+
+- Other Flutter Packages:
+
+  - `sqflite`: A SQLite database plugin for Flutter, used for local data storage.
+  - `path_provider`: A Flutter plugin for finding commonly used locations on the filesystem.
+  - `share_plus`: Allows users to share content with other apps.
+  - `url_launcher`: Opens URLs in the default web browser.
+  - `google_fonts`: Provides a wide variety of fonts from the Google Fonts collection.
+  - `flutter_rating_bar`: Implements a simple star rating system for user ratings.
+
+## Contributing
+
+We welcome contributions from the community! If you find a bug, have a feature request, or want to contribute to the development of Rexburg Dancing.
+
 
 
